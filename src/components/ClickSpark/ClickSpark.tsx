@@ -36,49 +36,44 @@ useEffect(() => {
 const canvas = canvasRef.current;
 if (!canvas) return;
 
-// const parent = canvas.parentElement;
-// if (!parent) return;
-
-let resizeTimeout: NodeJS.Timeout;
+let resizeTimeout: number | undefined;
 
 const resizeCanvas = () => {
-    // make canvas cover the whole viewport so sparks always render above other elements
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    if (canvas.width !== width || canvas.height !== height) {
+const width = window.innerWidth;
+const height = window.innerHeight;
+if (canvas.width !== width || canvas.height !== height) {
     canvas.width = width;
     canvas.height = height;
-    }
+}
 };
 
 const handleResize = () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(resizeCanvas, 100);
+if (resizeTimeout) clearTimeout(resizeTimeout);
+resizeTimeout = window.setTimeout(resizeCanvas, 100);
 };
 
-// observe window resize instead of parent element
 window.addEventListener('resize', handleResize);
-
 resizeCanvas();
 
 return () => {
-    window.removeEventListener('resize', handleResize);
-    clearTimeout(resizeTimeout);
+window.removeEventListener('resize', handleResize);
+if (resizeTimeout) clearTimeout(resizeTimeout);
 };
 }, []);
 
+
 const easeFunc = useCallback(
 (t: number) => {
-    switch (easing) {
-    case 'linear':
-        return t;
-    case 'ease-in':
-        return t * t;
-    case 'ease-in-out':
-        return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-    default:
-        return t * (2 - t);
-    }
+switch (easing) {
+case 'linear':
+    return t;
+case 'ease-in':
+    return t * t;
+case 'ease-in-out':
+    return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+default:
+    return t * (2 - t);
+}
 },
 [easing]
 );
@@ -92,45 +87,45 @@ if (!ctx) return;
 let animationId: number;
 
 const draw = (timestamp: number) => {
-    if (!startTimeRef.current) {
-    startTimeRef.current = timestamp;
-    }
-    ctx?.clearRect(0, 0, canvas.width, canvas.height);
+if (!startTimeRef.current) {
+startTimeRef.current = timestamp;
+}
+ctx?.clearRect(0, 0, canvas.width, canvas.height);
 
-    sparksRef.current = sparksRef.current.filter((spark: Spark) => {
-    const elapsed = timestamp - spark.startTime;
-    if (elapsed >= duration) {
-        return false;
-    }
+sparksRef.current = sparksRef.current.filter((spark: Spark) => {
+const elapsed = timestamp - spark.startTime;
+if (elapsed >= duration) {
+    return false;
+}
 
-    const progress = elapsed / duration;
-    const eased = easeFunc(progress);
+const progress = elapsed / duration;
+const eased = easeFunc(progress);
 
-    const distance = eased * sparkRadius * extraScale;
-    const lineLength = sparkSize * (1 - eased);
+const distance = eased * sparkRadius * extraScale;
+const lineLength = sparkSize * (1 - eased);
 
-    const x1 = spark.x + distance * Math.cos(spark.angle);
-    const y1 = spark.y + distance * Math.sin(spark.angle);
-    const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
-    const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
+const x1 = spark.x + distance * Math.cos(spark.angle);
+const y1 = spark.y + distance * Math.sin(spark.angle);
+const x2 = spark.x + (distance + lineLength) * Math.cos(spark.angle);
+const y2 = spark.y + (distance + lineLength) * Math.sin(spark.angle);
 
-    ctx.strokeStyle = sparkColor;
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.stroke();
+ctx.strokeStyle = sparkColor;
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.moveTo(x1, y1);
+ctx.lineTo(x2, y2);
+ctx.stroke();
 
-    return true;
-    });
+return true;
+});
 
-    animationId = requestAnimationFrame(draw);
+animationId = requestAnimationFrame(draw);
 };
 
 animationId = requestAnimationFrame(draw);
 
 return () => {
-    cancelAnimationFrame(animationId);
+cancelAnimationFrame(animationId);
 };
 }, [sparkColor, sparkSize, sparkRadius, sparkCount, duration, easeFunc, extraScale]);
 
@@ -143,10 +138,10 @@ const y = e.clientY - rect.top;
 
 const now = performance.now();
 const newSparks: Spark[] = Array.from({ length: sparkCount }, (_, i) => ({
-    x,
-    y,
-    angle: (2 * Math.PI * i) / sparkCount,
-    startTime: now
+x,
+y,
+angle: (2 * Math.PI * i) / sparkCount,
+startTime: now
 }));
 
 sparksRef.current.push(...newSparks);
@@ -154,24 +149,24 @@ sparksRef.current.push(...newSparks);
 
 return (
 <div
-    style={{
-    width: '100%',
-    height: '100%',
-    position: 'relative'
-    }}
-    onClick={handleClick}
+style={{
+width: '100%',
+height: '100%',
+position: 'relative'
+}}
+onClick={handleClick}
 >
-    <canvas
-    ref={canvasRef}
-    style={{
-        /* make canvas overlay fixed so it's always above other elements */
-        position: 'fixed',
-        inset: 0,
-        pointerEvents: 'none',
-        zIndex: 2147483647
-    }}
-    />
-    {children}
+<canvas
+ref={canvasRef}
+style={{
+    /* make canvas overlay fixed so it's always above other elements */
+    position: 'fixed',
+    inset: 0,
+    pointerEvents: 'none',
+    zIndex: 2147483647
+}}
+/>
+{children}
 </div>
 );
 };

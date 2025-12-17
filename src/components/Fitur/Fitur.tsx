@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './Fitur.module.css';
 
 const Fitur = () => {

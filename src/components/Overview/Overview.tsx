@@ -47,7 +47,7 @@ if (mapRef.current && typeof window !== 'undefined') {
         window.L.marker([school.lat, school.lng])
         .addTo(map)
         .bindPopup(`<b>${school.name}</b><br>Eco-Score: ${school.score}`)
-        .on('mouseover', function(e) {
+        .on('mouseover', function() {
             this.openPopup();
         });
     });
