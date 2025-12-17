@@ -1,0 +1,94 @@
+.root {
+display: flex;
+align-items: center;
+padding: 14px;
+margin: 8px 0;
+background: #f6f7f8;
+border-radius: 10px;
+transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease;
+cursor: pointer;
+}
+.root:hover,
+.root:focus {
+transform: translateX(6px);
+background: linear-gradient(135deg, #8bc34a 0%, #4a7c23 100%);
+box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+color: white;
+outline: none;
+}
+
+.rankBadge {
+margin-right: 14px;
+flex-shrink: 0;
+}
+
+.badge {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-width: 40px;
+height: 40px;
+border-radius: 8px;
+font-size: 1.05rem;
+font-weight: 700;
+padding: 0 10px;
+}
+
+/* badge variants */
+.badgePrimary { background: linear-gradient(135deg, #2196f3, #1976d2); color: #fff; }
+.badgeDanger  { background: linear-gradient(135deg, #ef5350, #e53935); color: #fff; }
+.badgeWarning { background: linear-gradient(135deg, #ffeb3b, #fbc02d); color: #222; }
+.badgeLight   { background: #e0e0e0; color: #222; }
+
+.itemInfo {
+flex: 1;
+min-width: 0;
+}
+
+.itemName {
+font-weight: 700;
+margin: 0 0 4px 0;
+color: #2b2b2b;
+font-size: 1.02rem;
+}
+
+.itemLocation {
+color: #666;
+font-size: 0.88rem;
+display: block;
+}
+
+.itemScore {
+text-align: right;
+flex-shrink: 0;
+margin-left: 14px;
+}
+
+.scoreValue {
+font-weight: 800;
+font-size: 1.18rem;
+color: #4a7c23;
+line-height: 1.1;
+}
+
+.scoreLabel {
+color: #777;
+font-size: 0.82rem;
+display: block;
+}
+
+/* ensure contrast when parent hovered */
+.root:hover .itemName,
+.root:hover .itemLocation,
+.root:hover .scoreValue,
+.root:hover .scoreLabel {
+color: white;
+}
+
+/* responsive tweaks */
+@media (max-width: 480px) {
+.root { padding: 12px; }
+.badge { min-width: 32px; height: 32px; font-size: 0.95rem; padding: 0 8px; }
+.itemName { font-size: 0.98rem; }
+.scoreValue { font-size: 1rem; }
+}

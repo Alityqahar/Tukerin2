@@ -1,0 +1,319 @@
+.leaderboardSection {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e9 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0;
+}
+
+/* Leaderboard Grid */
+.leaderboardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+}
+
+.leaderboardColumn {
+    width: 100%;
+}
+
+/* Leaderboard Container */
+.leaderboard {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leaderboard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.leaderboardTitle {
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #333;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.trophy,
+.star {
+    font-size: 1.8rem;
+}
+
+/* Leaderboard Item */
+.leaderboardItem {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin: 10px 0;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+}
+
+.leaderboardItem:hover,
+.leaderboardItem:focus {
+    background: linear-gradient(135deg, #8bc34a 0%, #4a7c23 100%);
+    color: white;
+    outline: none;
+    transform: translateX(5px);
+}
+
+.leaderboardItem:hover .itemName,
+.leaderboardItem:focus .itemName {
+    color: white;
+}
+
+.leaderboardItem:hover .itemLocation,
+.leaderboardItem:focus .itemLocation {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.leaderboardItem:hover .scoreValue,
+.leaderboardItem:focus .scoreValue {
+    color: white;
+}
+
+.leaderboardItem:hover .scoreLabel,
+.leaderboardItem:focus .scoreLabel {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Rank Badge */
+.rankBadge {
+    margin-right: 15px;
+    flex-shrink: 0;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0 12px;
+}
+
+.badgePrimary {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+}
+
+.badgeDanger {
+    background: linear-gradient(135deg, #ef5350, #e53935);
+    color: white;
+}
+
+.badgeWarning {
+    background: linear-gradient(135deg, #ffeb3b, #fbc02d);
+    color: #333;
+}
+
+.badgeLight {
+    background: #e0e0e0;
+    color: #333;
+}
+
+/* Item Info */
+.itemInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.itemName {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.itemLocation {
+    color: #666;
+    font-size: 0.9rem;
+    display: block;
+}
+
+/* Item Score */
+.itemScore {
+    text-align: right;
+    flex-shrink: 0;
+    margin-left: 15px;
+}
+
+.scoreValue {
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: #4a7c23;
+    line-height: 1.2;
+}
+
+.scoreLabel {
+    color: #666;
+    font-size: 0.85rem;
+    display: block;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .leaderboardGrid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .leaderboardSection {
+        padding: 60px 0;
+    }
+
+    .header {
+        margin-bottom: 40px;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .leaderboard {
+        padding: 20px;
+    }
+
+    .leaderboardTitle {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+
+    .leaderboardItem {
+        padding: 12px;
+    }
+
+    .badge {
+        min-width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .itemName {
+        font-size: 1rem;
+    }
+
+    .itemLocation {
+        font-size: 0.85rem;
+    }
+
+    .scoreValue {
+        font-size: 1.1rem;
+    }
+
+    .scoreLabel {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .leaderboardSection {
+        padding: 40px 0;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .leaderboard {
+        padding: 15px;
+    }
+
+    .leaderboardTitle {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+
+    .leaderboardItem {
+        padding: 10px;
+        flex-wrap: wrap;
+    }
+
+    .rankBadge {
+        margin-right: 10px;
+    }
+
+    .badge {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+        padding: 0 8px;
+    }
+
+    .itemInfo {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .itemName {
+        font-size: 0.95rem;
+    }
+
+    .itemLocation {
+        font-size: 0.8rem;
+    }
+
+    .itemScore {
+        margin-left: 10px;
+    }
+
+    .scoreValue {
+        font-size: 1rem;
+    }
+
+    .scoreLabel {
+        font-size: 0.75rem;
+    }
+}

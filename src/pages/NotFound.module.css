@@ -1,0 +1,135 @@
+/* Layout */
+.notFoundSection {
+min-height: 72vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+padding: 72px 0;
+font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+background: transparent;
+color: #111;
+}
+
+/* Card */
+.notFoundCard {
+width: 100%;
+max-width: 920px;
+background: #ffffff;
+border: 1px solid rgba(0,0,0,0.06);
+border-radius: 16px;
+padding: 36px;
+text-align: center;
+box-shadow: 0 18px 40px rgba(6,28,8,0.08);
+position: relative;
+overflow: hidden;
+color: #111;
+transition: transform 750ms cubic-bezier(.2,.9,.3,1), box-shadow 550ms ease;
+transform-origin: center center;
+}
+.notFoundCard:hover {
+transform: scale(1.03);
+box-shadow: 0 30px 80px rgba(6,28,8,0.10);
+}
+
+/* Illustration */
+.nfIllustration {
+display: block;
+margin: 10px auto 8px;
+width: 240px;
+height: 160px;
+max-width: 100%;
+filter: drop-shadow(0 10px 24px rgba(0,0,0,0.10));
+transition: transform 260ms ease;
+}
+.notFoundCard:hover .nfIllustration { transform: scale(1.06); }
+
+/* Title / text */
+.nfTitle {
+font-size: 4.8rem;
+line-height: 1;
+margin: 6px 0 6px;
+font-weight: 900;
+color: #111;
+text-shadow: 0 6px 18px rgba(0,0,0,0.03);
+animation: nfPop 700ms cubic-bezier(.2,.9,.3,1) both;
+}
+@keyframes nfPop {
+0% { transform: scale(.94); opacity: 0; filter: blur(6px); }
+60% { transform: scale(1.02); opacity: 1; filter: blur(0); }
+100% { transform: scale(1); }
+}
+
+.nfSubtitle {
+font-size: 1.15rem;
+color: #222;
+margin: 8px 0 10px;
+font-weight: 700;
+}
+
+.nfText {
+color: #444;
+margin: 0 auto 18px;
+max-width: 64ch;
+font-size: 1rem;
+}
+
+/* actions (buttons) */
+.nfActions {
+display: flex;
+gap: 12px;
+justify-content: center;
+flex-wrap: wrap;
+margin-top: 8px;
+}
+
+.nfBtnPrimary {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+padding: 12px 22px;
+border-radius: 12px;
+background: linear-gradient(90deg,#7bc043 0%, #4a7c23 100%);
+color: white;
+font-weight: 700;
+text-decoration: none;
+box-shadow: 0 12px 30px rgba(40,80,20,0.18);
+transition: transform .18s ease, box-shadow .18s ease;
+border: none;
+}
+
+.nfBtnGhost {
+display: inline-flex;
+align-items: center;
+gap: 10px;
+padding: 10px 18px;
+border-radius: 10px;
+background: transparent;
+color: #111;
+border: 1.5px solid rgba(0,0,0,0.08);
+text-decoration: none;
+transition: background .15s ease, transform .15s ease;
+}
+
+/* decorative pseudo element */
+.notFoundCard::before {
+content: "";
+position: absolute;
+right: -10%;
+top: -6%;
+width: 320px;
+height: 320px;
+background: radial-gradient(circle at 30% 30%, rgba(123,192,67,0.06), transparent 40%);
+transform: rotate(12deg);
+pointer-events: none;
+opacity: 0.9;
+}
+
+/* responsive */
+@media (max-width: 768px) {
+.notFoundSection { padding: 40px 12px; }
+.notFoundCard { padding: 24px; }
+.nfTitle { font-size: 3.2rem; }
+.nfIllustration { width: 200px; height: 130px; }
+.nfText { font-size: 0.98rem; }
+}

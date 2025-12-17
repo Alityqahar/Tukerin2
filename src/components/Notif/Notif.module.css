@@ -1,0 +1,37 @@
+.container{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.notifContainer{
+    border: 1px solid black;
+    border-radius: 20px;
+    margin-top: 20px;
+    padding: 15px 18px;
+    min-height: 100px;
+}
+
+.notifItem{
+    border: 1.5px solid #4a7c23;
+    border-radius: 16px;
+    padding: 12px 18px;
+    background: linear-gradient(120deg, #f1f8e9 70%, #e8f5e9 100%);
+    transition: box-shadow 0.15s, background 0.15s, transform 0.15s;
+}
+.notifItem:hover {
+    background: linear-gradient(120deg, #dcedc8 70%, #c5e1a5 100%);
+    box-shadow: 0 4px 16px rgba(76,175,80,0.10);
+    transform: translateY(-1px) scale(1.01);
+}
+
+.title{
+    font-size: 1.1rem;
+    color: #4a7c23;
+    font-weight: 500;
+    display: block;
+}
+
+.deadline{
+    font-size: 0.9rem;
+}
