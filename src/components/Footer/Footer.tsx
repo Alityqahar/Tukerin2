@@ -7,7 +7,7 @@ return (
         <div className={styles.row}>
         {/* About Section */}
         <div className={styles.col}>
-            <h5 className={styles.heading}>Tukerin</h5>
+            <img src="footer-logo.png" className={styles.logo}/>
             <p className={styles.text}>
             Platform pertukaran barang bekas sekolah yang mendukung ekonomi sirkular dan keberlanjutan lingkungan.
             </p>
