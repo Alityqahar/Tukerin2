@@ -4,7 +4,7 @@ import styles from './Overview.module.css';
 // Type declaration untuk Leaflet
 declare global {
 interface Window {
-L: any;
+L: typeof import('leaflet');
 }
 }
 
@@ -44,11 +44,11 @@ if (mapRef.current && typeof window !== 'undefined') {
 
     // Tambahkan marker untuk setiap sekolah
     schools.forEach(school => {
-        window.L.marker([school.lat, school.lng])
-        .addTo(map)
-        .bindPopup(`<b>${school.name}</b><br>Eco-Score: ${school.score}`)
-        .on('mouseover', function() {
-            this.openPopup();
+        const marker = window.L.marker([school.lat, school.lng])
+            .addTo(map)
+            .bindPopup(`<b>${school.name}</b><br>Eco-Score: ${school.score}`);
+        marker.on('mouseover', () => {
+            marker.openPopup();
         });
     });
 
