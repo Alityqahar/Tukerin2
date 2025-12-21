@@ -47,7 +47,10 @@ export default function Calender() {
 
     return (
         <div className={styles.container}>
-            <h2 className='text-center'>Kalender</h2>
+            <div className={styles.sectionHeader}>
+                <i className="bi bi-calendar-check"></i>
+                <h2>Calender</h2>
+            </div>
             <div className={styles.calender}>
                 <div className={styles.header}>
                     <button className={styles.navBtn} onClick={handlePrev}>&lt;</button>

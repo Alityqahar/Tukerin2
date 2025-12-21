@@ -18,7 +18,7 @@ export default function Profil({ noid, name }: props) {
     return (
         <div className={styles.container}>
             <div className={styles.avatarWrapper}>
-                <img src="foto-profil.png" className={styles.foto} alt="Foto Profil" />
+                <img src="foto-profil.webp" className={styles.foto} alt="Foto Profil" />
             </div>
             <div className={styles.name}>{name}</div>
             <div className={styles.id}>

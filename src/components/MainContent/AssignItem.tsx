@@ -15,7 +15,10 @@ export default function AssignItem({title,deadline}:props){
                 <span className={styles.deadline}>{deadline}</span>
                 </div>
             </div>
-            <button className={styles.btn}>See Details</button>
+            <button className={styles.btn}>
+                <span>See Details</span>
+                <i className="bi bi-arrow-right"></i>
+            </button>
         </div>
     )
 }

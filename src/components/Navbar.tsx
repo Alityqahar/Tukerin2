@@ -68,7 +68,7 @@ export default function Navbar(){
         </div>
         <PillNavButtons 
         items={[
-        { label: 'Masuk', href: '/dashboard' },
+        { label: 'Dashboard', href: '/dashboard' },
         ]}
         activeHref="/"
         className="custom-nav"
