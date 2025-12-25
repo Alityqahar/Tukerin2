@@ -1,18 +1,12 @@
 .pill-nav-container {
 position: fixed;
-top: 1em;
-z-index: 99999; /* increased so navbar sits above map and other content */
+top: 1rem;
+z-index: 99999;
 display: flex;
 width: 100%;
 justify-content: center;
-pointer-events: auto;
-}
-
-@media (max-width: 768px) {
-.pill-nav-container {
-width: 100%;
-left: 0;
-}
+pointer-events: none;
+padding: 0 1rem;
 }
 
 .pill-nav {
@@ -21,13 +15,14 @@ left: 0;
 --pill-pad-x: 18px;
 --pill-gap: 3px;
 width: max-content;
+max-width: 100%;
 display: flex;
 align-items: center;
 box-sizing: border-box;
 position: relative;
 z-index: 100000;
+pointer-events: auto;
 
-/* glassmorphism */
 padding: 6px;
 background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
 border: 1px solid rgba(255,255,255,0.10);
@@ -36,31 +31,6 @@ backdrop-filter: blur(8px) saturate(120%);
 -webkit-backdrop-filter: blur(8px) saturate(120%);
 box-shadow: 0 10px 30px rgba(8,12,10,0.18);
 transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-}
-
-@media (max-width: 768px) {
-.pill-nav {
-width: 100%;
-justify-content: space-between;
-padding: 0 1rem;
-background: transparent;
-}
-}
-
-/* subtle tweak for logo circle to blend with glass shell */
-.pill-logo {
-background: rgba(255,255,255,0.04);
-border: 1px solid rgba(255,255,255,0.06);
-box-shadow: 0 6px 18px rgba(8,12,10,0.12);
-}
-
-.pill-nav-items {
-position: relative;
-display: flex;
-align-items: center;
-height: var(--nav-h);
-background: var(--base, #000);
-border-radius: 9999px;
 }
 
 .pill-logo {
@@ -73,6 +43,10 @@ display: inline-flex;
 align-items: center;
 justify-content: center;
 overflow: hidden;
+flex-shrink: 0;
+background: rgba(255,255,255,0.04);
+border: 1px solid rgba(255,255,255,0.06);
+box-shadow: 0 6px 18px rgba(8,12,10,0.12);
 }
 
 .pill-logo img {
@@ -82,6 +56,16 @@ object-fit: cover;
 display: block;
 }
 
+.pill-nav-items {
+position: relative;
+display: flex;
+align-items: center;
+height: var(--nav-h);
+background: var(--base, #000);
+border-radius: 9999px;
+overflow: hidden;
+}
+
 .pill-list {
 list-style: none;
 display: flex;
@@ -89,7 +73,6 @@ align-items: stretch;
 gap: var(--pill-gap);
 margin: 0;
 padding: 5px 10px;
-gap: 5px;
 height: 100%;
 }
 
@@ -178,16 +161,6 @@ display: block;
 display: none;
 }
 
-@media (max-width: 768px) {
-.desktop-only {
-display: none;
-}
-
-.mobile-only {
-display: block;
-}
-}
-
 .mobile-menu-button {
 width: var(--nav-h);
 height: var(--nav-h);
@@ -202,12 +175,7 @@ gap: 4px;
 cursor: pointer;
 padding: 0;
 position: relative;
-}
-
-@media (max-width: 768px) {
-.mobile-menu-button {
-display: flex;
-}
+flex-shrink: 0;
 }
 
 .hamburger-line {
@@ -215,15 +183,15 @@ width: 16px;
 height: 2px;
 background: var(--pill-bg, #fff);
 border-radius: 1px;
-transition: all 0.01s ease;
+transition: all 0.3s ease;
 transform-origin: center;
 }
 
 .mobile-menu-popover {
 position: absolute;
-top: 3em;
-left: 1rem;
-right: 1rem;
+top: calc(100% + 1rem);
+left: 0;
+right: 0;
 background: var(--base, #f0f0f0);
 border-radius: 27px;
 box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
@@ -231,27 +199,31 @@ z-index: 998;
 opacity: 0;
 transform-origin: top center;
 visibility: hidden;
+margin: 0 1rem;
+max-height: 70vh;
+overflow-y: auto;
 }
 
 .mobile-menu-list {
 list-style: none;
 margin: 0;
-padding: 3px;
+padding: 8px;
 display: flex;
 flex-direction: column;
-gap: 3px;
+gap: 4px;
 }
 
 .mobile-menu-popover .mobile-menu-link {
 display: block;
-padding: 12px 16px;
+padding: 14px 18px;
 color: var(--pill-text, #fff);
 background-color: var(--pill-bg, #fff);
 text-decoration: none;
-font-size: 16px;
-font-weight: 500;
+font-size: 15px;
+font-weight: 600;
 border-radius: 50px;
 transition: all 0.2s ease;
+text-align: center;
 }
 
 .mobile-menu-popover .mobile-menu-link:hover {
@@ -272,22 +244,174 @@ justify-content: flex-end;
 pointer-events: auto;
 }
 
-/* mobile adjustment: keep full width and align right edge */
-@media (max-width: 768px) {
-.pill-nav-right {
-position: fixed;
-top: 0.5rem;
-right: 0;
-left: 0;
-width: 100%;
-justify-content: flex-end;
-padding-right: 1rem;
+/* Tablet Responsive */
+@media (max-width: 992px) {
+.pill-nav-container {
+padding: 0 0.8rem;
+}
+
+.pill {
+font-size: 15px;
+padding: 0 14px;
+}
+
+.pill-list {
+gap: 2px;
+padding: 4px 8px;
 }
 }
 
-/* utility class to explicitly force above-map behavior when needed */
-.pill-nav--over-map {
-z-index: 99999 !important;
-position: fixed !important;
-pointer-events: auto !important;
+/* Mobile Responsive - MERGED NAVIGATION */
+@media (max-width: 768px) {
+.pill-nav-container {
+width: 100%;
+padding: 0 1rem;
+justify-content: flex-start;
 }
+
+.pill-nav {
+width: auto;
+min-width: auto;
+}
+
+.desktop-only {
+display: none;
+}
+
+.mobile-only {
+display: flex;
+}
+
+.mobile-menu-button {
+display: flex;
+}
+
+/* Hide separate button container on mobile */
+.pill-nav-right {
+display: none !important;
+}
+
+.mobile-menu-popover {
+max-width: 400px;
+margin: 0 auto;
+left: 1rem;
+right: 1rem;
+}
+
+.mobile-menu-list {
+padding: 10px;
+gap: 5px;
+}
+
+.mobile-menu-popover .mobile-menu-link {
+padding: 12px 16px;
+font-size: 14px;
+}
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+.pill-nav-container {
+padding: 0 0.5rem;
+top: 0.5rem;
+}
+
+.pill-nav {
+padding: 4px;
+}
+
+.pill-logo {
+width: 36px;
+height: 36px;
+padding: 6px;
+}
+
+.mobile-menu-button {
+width: 36px;
+height: 36px;
+}
+
+.hamburger-line {
+width: 14px;
+}
+
+.mobile-menu-popover {
+top: calc(100% + 0.5rem);
+margin: 0 0.5rem;
+max-height: 60vh;
+}
+
+.mobile-menu-list {
+padding: 8px;
+gap: 4px;
+}
+
+.mobile-menu-popover .mobile-menu-link {
+padding: 10px 14px;
+font-size: 13px;
+}
+}
+
+/* Very Small Mobile */
+@media (max-width: 360px) {
+.pill-nav-container {
+padding: 0 0.4rem;
+}
+
+.pill-logo {
+width: 32px;
+height: 32px;
+padding: 5px;
+}
+
+.mobile-menu-button {
+width: 32px;
+height: 32px;
+}
+
+.hamburger-line {
+width: 12px;
+height: 1.5px;
+gap: 3px;
+}
+
+.mobile-menu-popover {
+margin: 0 0.4rem;
+border-radius: 20px;
+}
+
+.mobile-menu-list {
+padding: 6px;
+gap: 3px;
+}
+
+.mobile-menu-popover .mobile-menu-link {
+padding: 9px 12px;
+font-size: 12px;
+border-radius: 40px;
+}
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+.pill-nav-container {
+top: 0.5rem;
+}
+
+.pill-nav {
+padding: 4px;
+}
+
+.mobile-menu-popover {
+max-height: 50vh;
+}
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+.pill,
+.hamburger-line,
+.mobile-menu-popover {
+transition: none !important;
+}
+}   

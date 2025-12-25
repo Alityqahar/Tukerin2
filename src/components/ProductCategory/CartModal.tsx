@@ -38,11 +38,11 @@ const CartModal: React.FC<{
 										</div>
 										<div className={styles.cartItemActions}>
 											<div className={styles.quantityControl}>
-												<button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}>-</button>
+												<button onClick={() => onUpdateQuantity(String(item.id), item.quantity - 1)}>-</button>
 												<span>{item.quantity}</span>
-												<button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}>+</button>
+												<button onClick={() => onUpdateQuantity(String(item.id), item.quantity + 1)}>+</button>
 											</div>
-											<button className={styles.removeBtn} onClick={() => onRemove(item.id)}>
+											<button className={styles.removeBtn} onClick={() => onRemove(String(item.id))}>
 												<i className="fas fa-trash"></i>
 											</button>
 										</div>

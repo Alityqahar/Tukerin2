@@ -13,7 +13,28 @@ export default function Navbar(){
         { label: 'Leaderboard', href: '#leaderboard' },
     ];
 
+    // Button items that will merge in mobile
+    const buttonItems = [
+        { label: 'Dashboard', href: '/dashboard' },
+    ];
+
+    // Combine all items for mobile
+    const allItems = [...navItems, ...buttonItems];
+
     const [activeHref, setActiveHref] = useState<string>(navItems[0].href);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+
+    // Detect mobile
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         const ids = navItems.map(i => i.href).filter(h => h.startsWith('#')).map(h => h.slice(1));
@@ -53,31 +74,33 @@ export default function Navbar(){
     return(
         <>
         <div onClick={handleContainerClick}>
-        <PillNav
-        logo={logo}
-        logoAlt="Company Logo"
-        items={navItems}
-        activeHref={activeHref}
-        className="custom-nav"
-        ease="power2.easeOut"
-        baseColor="linear-gradient(120deg, #4a7c23 0%, #8bc34a 100%)"
-        pillColor="#ffffff"
-        hoveredPillTextColor="#ffffff"
-        pillTextColor="#000000"
-        />
+            <PillNav
+                logo={logo}
+                logoAlt="Company Logo"
+                items={isMobile ? allItems : navItems}
+                activeHref={activeHref}
+                className="custom-nav"
+                ease="power2.easeOut"
+                baseColor="linear-gradient(120deg, #4a7c23 0%, #8bc34a 100%)"
+                pillColor="#ffffff"
+                hoveredPillTextColor="#ffffff"
+                pillTextColor="#000000"
+            />
         </div>
-        <PillNavButtons 
-        items={[
-        { label: 'Dashboard', href: '/dashboard' },
-        ]}
-        activeHref="/"
-        className="custom-nav"
-        ease="power2.easeOut"
-        baseColor="linear-gradient(120deg, #4a7c23 0%, #8bc34a 100%)"
-        pillColor="#ffffff"
-        hoveredPillTextColor="#ffffff"
-        pillTextColor="#000000"
-        />
+        
+        {/* Only show separate button on desktop */}
+        {!isMobile && (
+            <PillNavButtons 
+                items={buttonItems}
+                activeHref="/"
+                className="custom-nav"
+                ease="power2.easeOut"
+                baseColor="linear-gradient(120deg, #4a7c23 0%, #8bc34a 100%)"
+                pillColor="#ffffff"
+                hoveredPillTextColor="#ffffff"
+                pillTextColor="#000000"
+            />
+        )}
         </>
     )
 }

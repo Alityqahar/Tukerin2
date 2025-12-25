@@ -33,11 +33,12 @@ const ProductCard: React.FC<{
 					<span className={styles.badge}>Stok: {product.stock}</span>
 				</div>
 				<button
+					disabled={product.stock <= 0}
 					className={`${styles.addToCart} ${isAdded ? styles.added : ''}`}
 					onClick={handleAddToCart}
-				>
+					>
 					<i className={`fas ${isAdded ? 'fa-check' : 'fa-cart-plus'}`}></i>
-					{isAdded ? 'Ditambahkan' : 'Tambah ke Keranjang'}
+					{product.stock <= 0 ? 'Stok Habis' : isAdded ? 'Ditambahkan' : 'Tambah ke Keranjang'}
 				</button>
 			</div>
 		</div>

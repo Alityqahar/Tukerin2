@@ -1,5 +1,5 @@
 .statsSection {
-    padding: 60px 0;
+    padding: 60px 20px;
     background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
 }
 
@@ -40,21 +40,22 @@
     font-weight: bold;
     margin-bottom: 8px;
     color: #333;
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .mapTitle i {
     color: #4a7c23;
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
 }
 
 .mapSubtitle {
     color: #666;
     margin: 0;
-    font-size: 1rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
 }
 
 .map {
@@ -90,7 +91,7 @@
 }
 
 .statCard i {
-    font-size: 3rem;
+    font-size: clamp(2.5rem, 5vw, 3rem);
     margin-bottom: 15px;
     display: block;
 }
@@ -113,7 +114,7 @@
 
 .statNumber {
     font-weight: bold;
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     margin-bottom: 8px;
     background: linear-gradient(135deg, #4a7c23, #8bc34a);
     -webkit-background-clip: text;
@@ -145,27 +146,60 @@
 .statLabel {
     margin: 0;
     color: #666;
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 2vw, 1rem);
     font-weight: 500;
 }
 
-/* Responsive Design */
+/* Responsive - Large Tablet */
+@media (max-width: 992px) {
+    .statsSection {
+        padding: 50px 15px;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    .map {
+        height: 350px;
+    }
+
+    .statsGrid {
+        gap: 18px;
+    }
+
+    .statCard {
+        padding: 22px 20px;
+    }
+}
+
+/* Responsive - Tablet - 2 Columns */
 @media (max-width: 768px) {
     .statsSection {
-        padding: 40px 0;
+        padding: 40px 12px;
+    }
+
+    .container {
+        padding: 0 12px;
     }
 
     .map {
         height: 300px;
     }
 
+    /* 2 COLUMNS FOR TABLET AND MOBILE */
     .statsGrid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
+    }
+
+    .mapHeader {
+        padding: 18px 15px;
     }
 
     .mapTitle {
         font-size: 1.2rem;
+        gap: 8px;
     }
 
     .mapTitle i {
@@ -177,28 +211,151 @@
     }
 
     .statCard {
-        padding: 20px 15px;
+        padding: 20px 12px;
     }
 
     .statCard i {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        margin-bottom: 10px;
     }
 
     .statNumber {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .statLabel {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    .mapContainer:hover {
+        transform: translateY(-3px);
     }
 }
 
+/* Responsive - Mobile - KEEP 2 COLUMNS */
 @media (max-width: 480px) {
+    .statsSection {
+        padding: 30px 10px;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    /* MAINTAIN 2 COLUMNS ON MOBILE */
     .statsGrid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
     .map {
         height: 250px;
+        border-radius: 0 0 15px 15px;
+    }
+
+    .mapContainer {
+        border-radius: 15px;
+    }
+
+    .mapHeader {
+        padding: 15px 12px;
+    }
+
+    .statCard {
+        padding: 16px 10px;
+    }
+
+    .statCard i {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+
+    .statNumber {
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+    }
+
+    .statLabel {
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+}
+
+/* Responsive - Very Small Mobile - STILL 2 COLUMNS */
+@media (max-width: 360px) {
+    .statsSection {
+        padding: 25px 8px;
+    }
+
+    .statsGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .map {
+        height: 220px;
+    }
+
+    .statCard {
+        padding: 14px 8px;
+        border-radius: 12px;
+    }
+
+    .statCard i {
+        font-size: 1.8rem;
+    }
+
+    .statNumber {
+        font-size: 1.2rem;
+    }
+
+    .statLabel {
+        font-size: 0.75rem;
+    }
+
+    .mapTitle {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
+
+/* Landscape Mobile - 4 COLUMNS */
+@media (max-width: 768px) and (orientation: landscape) {
+    .map {
+        height: 280px;
+    }
+
+    .statsGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .mapContainer:hover,
+    .statCard:hover {
+        transform: none;
+    }
+
+    .mapContainer:active {
+        transform: translateY(-3px);
+    }
+
+    .statCard:active {
+        transform: scale(0.98);
+    }
+}
+
+/* Accessibility - Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+    .mapContainer,
+    .statCard {
+        transition: none;
+    }
+
+    .mapContainer:hover,
+    .statCard:hover {
+        transform: none;
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import styles from './LeaderboardItem.module.css';
 
 export type BadgeKind = 'primary' | 'danger' | 'warning' | 'light';

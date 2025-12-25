@@ -1,17 +1,15 @@
-export interface Product {
-	id: string;
-	title: string;
-	price: number;
-	image: string;
-	category: string;
-	seller: string;
-	stock: number;
-	condition: string;
-	description: string;
-	trending?: boolean;
-	trendingBadge?: string;
-}
+export type Product = {
+    id: string | number;
+    title: string;
+    description: string;
+    price: number;
+    image: string;
+    seller: string;
+    stock: number;
+    trendingBadge?: string;
+    category: string; // added
+    trending?: boolean; // added
+};
 
-export interface CartItem extends Product {
-	quantity: number;
-}
+// CartItem extends Product with quantity
+export type CartItem = Product & { quantity: number };

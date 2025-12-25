@@ -6,7 +6,7 @@
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0;
+    padding: 0 20px;
 }
 
 /* Header */
@@ -96,8 +96,12 @@
     margin: 0;
 }
 
-/* Responsive Design */
+/* Responsive - Large Tablet */
 @media (max-width: 992px) {
+    .fiturSection {
+        padding: 60px 0;
+    }
+
     .featuresGrid {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 25px;
@@ -112,9 +116,14 @@
     }
 }
 
+/* Responsive - Tablet */
 @media (max-width: 768px) {
     .fiturSection {
-        padding: 60px 0;
+        padding: 50px 0;
+    }
+
+    .container {
+        padding: 0 15px;
     }
 
     .header {
@@ -129,33 +138,46 @@
         font-size: 1rem;
     }
 
+    /* 2 COLUMNS FOR TABLET */
     .featuresGrid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
 
     .featureCard {
-        padding: 25px 20px;
+        padding: 25px 18px;
+        border-radius: 18px;
     }
 
     .featureIcon {
         width: 70px;
         height: 70px;
         font-size: 1.8rem;
+        margin-bottom: 15px;
     }
 
     .featureTitle {
-        font-size: 1.2rem;
+        font-size: 1.15rem;
     }
 
     .featureDescription {
         font-size: 0.95rem;
+        line-height: 1.5;
     }
 }
 
+/* Responsive - Mobile - KEEP 2 COLUMNS */
 @media (max-width: 480px) {
     .fiturSection {
         padding: 40px 0;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .header {
+        margin-bottom: 30px;
     }
 
     .title {
@@ -166,23 +188,101 @@
         font-size: 0.9rem;
     }
 
+    /* MAINTAIN 2 COLUMNS ON MOBILE */
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
     .featureCard {
-        padding: 20px 15px;
+        padding: 18px 10px;
+        border-radius: 16px;
     }
 
     .featureIcon {
         width: 60px;
         height: 60px;
         font-size: 1.5rem;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
     }
 
     .featureTitle {
-        font-size: 1.1rem;
-        margin-bottom: 10px;
+        font-size: 0.95rem;
+        margin-bottom: 8px;
+        line-height: 1.3;
     }
 
     .featureDescription {
+        font-size: 0.8rem;
+        line-height: 1.4;
+    }
+}
+
+/* Responsive - Very Small Mobile - STILL 2 COLUMNS */
+@media (max-width: 360px) {
+    .featuresGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .featureCard {
+        padding: 15px 8px;
+        border-radius: 14px;
+    }
+
+    .featureIcon {
+        width: 55px;
+        height: 55px;
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    .featureTitle {
         font-size: 0.9rem;
+        line-height: 1.2;
+    }
+
+    .featureDescription {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .featuresGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .featureCard:hover {
+        transform: none;
+    }
+
+    .featureCard:active {
+        transform: scale(0.98);
+    }
+
+    .featureCard:hover .featureIcon {
+        transform: none;
+    }
+
+    .featureCard:active .featureIcon {
+        transform: scale(1.05);
+    }
+}
+
+/* Accessibility - Reduce Motion */
+@media (prefers-reduced-motion: reduce) {
+    .featureCard,
+    .featureIcon {
+        transition: none;
+    }
+
+    .featureCard:hover,
+    .featureCard:hover .featureIcon {
+        transform: none;
     }
 }
