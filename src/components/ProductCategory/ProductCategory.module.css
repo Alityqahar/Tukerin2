@@ -859,6 +859,17 @@ padding: 10px 18px;
 font-size: 0.9rem;
 }
 
+.optionsGrid {
+grid-template-columns: repeat(2, 1fr);
+gap: 10px;
+}
+
+.modal {
+width: 98%;
+max-height: 80vh;
+min-height: 0;
+}
+
 /* Mobile: hide stock, compact seller name, smaller addToCart */
 .productStock {
 display: none;

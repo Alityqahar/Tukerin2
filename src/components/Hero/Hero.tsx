@@ -37,6 +37,15 @@ clearInterval(progressTimer);
 
 return (
 <section className={styles.heroSection}>
+    {/* New animated bubbles background */}
+    <div className={styles.heroBubbles} aria-hidden="true">
+      <div className={`${styles.heroBubble} ${styles.b1}`}></div>
+      <div className={`${styles.heroBubble} ${styles.b2}`}></div>
+      <div className={`${styles.heroBubble} ${styles.b3}`}></div>
+      <div className={`${styles.heroBubble} ${styles.b4}`}></div>
+      <div className={`${styles.heroBubble} ${styles.b5}`}></div>
+    </div>
+
     {/* decorative floating shapes (always behind content) */}
     <div className={styles.heroDecor} aria-hidden="true">
     <span className={`${styles.leaf} ${styles['leaf-1']}`} />
