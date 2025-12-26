@@ -6,6 +6,7 @@ import CartModal from './CartModal';
 import CheckoutModal from './CheckoutModal';
 import { supabase } from '../../lib/supabase';
 import Swal from 'sweetalert2';
+import EcoBuddyChatbot from '../EcoBuddy/EcoBuddyChatbot'; // Tambah import
 
 const ProductCategory = () => {
 const [products, setProducts] = useState<Product[]>([]);
@@ -18,6 +19,7 @@ const [showCartModal, setShowCartModal] = useState(false);
 const [showCheckoutModal, setShowCheckoutModal] = useState(false);
 const [paymentMethod, setPaymentMethod] = useState('Bank');
 const [shippingMethod, setShippingMethod] = useState('Ambil di Sekolah');
+const [showEcoBuddy, setShowEcoBuddy] = useState(false); // State untuk EcoBuddy
 // const [showSuccessModal, setShowSuccessModal] = useState(false); // modal sukses
 
 /* ================= FETCH PRODUCTS ================= */
@@ -267,6 +269,21 @@ return (
 			<span className={styles.cartBadge}>{cart.length}</span>
 		)}
 		</button>
+
+		{/* === Floating EcoBuddy Button === */}
+		<button
+			type="button"
+			className={styles.floatingEcoBuddyBtn}
+			onClick={() => setShowEcoBuddy(true)}
+			aria-label="Buka EcoBuddy Chatbot"
+		>
+			<i className="fas fa-robot"></i>
+		</button>
+
+		{/* === EcoBuddy Chatbot Modal === */}
+		{showEcoBuddy && (
+			<EcoBuddyChatbot onClose={() => setShowEcoBuddy(false)} />
+		)}
 
 		{showCartModal && (
 		<CartModal

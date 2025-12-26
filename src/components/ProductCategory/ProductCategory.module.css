@@ -393,21 +393,226 @@ background: #8bc34a;
 transform: scale(1.1);
 }
 
-.cartBadge {
-position: absolute;
-top: -5px;
-right: -5px;
-background: #e91e63;
-color: white;
+/* === Floating EcoBuddy Button === */
+.floatingEcoBuddyBtn {
+position: fixed;
+bottom: 30px;
+left: 30px;
+background: linear-gradient(135deg, #4a7c23, #8bc34a); /* konsisten dengan tombol utama */
+color: #fff;
+border: none;
 border-radius: 50%;
-min-width: 24px;
-height: 24px;
+width: 60px;
+height: 60px;
+font-size: 1.7rem;
+box-shadow: 0 8px 25px rgba(74, 124, 35, 0.18);
+transition: all 0.3s ease;
+z-index: 1001;
+cursor: pointer;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 0.85rem;
-font-weight: bold;
-animation: bounce 2s infinite;
+}
+.floatingEcoBuddyBtn:hover {
+background: linear-gradient(135deg, #8bc34a, #4a7c23);
+transform: scale(1.1);
+}
+.floatingEcoBuddyBtn:active {
+filter: brightness(0.95);
+}
+
+/* Responsif untuk tombol floating */
+@media (max-width: 768px) {
+.floatingEcoBuddyBtn {
+bottom: 20px;
+left: 20px;
+width: 55px;
+height: 55px;
+font-size: 1.5rem;
+}
+}
+@media (max-width: 480px) {
+.floatingEcoBuddyBtn {
+width: 50px;
+height: 50px;
+font-size: 1.3rem;
+left: 12px;
+bottom: 12px;
+}
+}
+
+/* === EcoBuddy Modal Style === */
+.ecoBuddyModalOverlay {
+position: fixed;
+inset: 0;
+background: rgba(74, 124, 35, 0.18); /* hijau transparan, konsisten accent */
+z-index: 3001;
+display: flex;
+align-items: flex-end;
+justify-content: flex-start;
+animation: fadeIn 0.2s;
+}
+@media (min-width: 600px) {
+.ecoBuddyModalOverlay {
+align-items: center;
+justify-content: flex-start;
+}
+}
+.ecoBuddyModal {
+background: linear-gradient(135deg, #ffffff 80%, #f1f8e9 100%);
+border-radius: 22px 22px 22px 0;
+box-shadow: 0 8px 32px rgba(74,124,35,0.13);
+width: 95vw;
+max-width: 380px;
+min-width: 260px;
+height: 70vh;
+max-height: 520px;
+margin: 0 0 24px 24px;
+display: flex;
+flex-direction: column;
+animation: slideInLeft 0.25s cubic-bezier(.4,1.2,.6,1);
+position: relative;
+}
+@media (max-width: 600px) {
+.ecoBuddyModal {
+width: 98vw;
+max-width: 99vw;
+min-width: 0;
+height: 65vh;
+margin: 0 0 10px 5px;
+border-radius: 18px 18px 18px 0;
+}
+}
+@keyframes slideInLeft {
+from { transform: translateX(-60px) scale(0.98); opacity: 0; }
+to { transform: translateX(0) scale(1); opacity: 1; }
+}
+.ecoBuddyHeader {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 18px 22px 12px 22px;
+border-bottom: 1.5px solid #e8f5e9;
+background: linear-gradient(90deg, #4a7c23 60%, #8bc34a 100%);
+border-radius: 22px 22px 0 0;
+}
+.ecoBuddyTitle {
+color: #fff;
+font-weight: 700;
+font-size: 1.2rem;
+display: flex;
+align-items: center;
+gap: 10px;
+}
+.ecoBuddyCloseBtn {
+background: none;
+border: none;
+color: #fff;
+font-size: 1.7rem;
+cursor: pointer;
+transition: color 0.2s;
+margin-left: 8px;
+}
+.ecoBuddyCloseBtn:hover {
+color: #e91e63; /* accent merah, tetap kontras */
+}
+.ecoBuddyBody {
+flex: 1;
+padding: 18px 18px 12px 18px;
+overflow-y: auto;
+background: #f1f8e9; /* hijau muda, konsisten background utama */
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.ecoBuddyInputBar {
+display: flex;
+align-items: center;
+gap: 8px;
+padding: 12px 16px;
+border-top: 1.5px solid #e8f5e9;
+background: #fff;
+border-radius: 0 0 22px 0;
+}
+.ecoBuddyInput {
+flex: 1;
+border: 1.5px solid #8bc34a;
+border-radius: 12px;
+padding: 9px 14px;
+font-size: 1rem;
+outline: none;
+transition: border 0.2s;
+background: #f9fff6;
+color: #222;
+}
+.ecoBuddyInput:focus {
+border-color: #4a7c23;
+}
+.ecoBuddySendBtn {
+background: linear-gradient(135deg, #4a7c23, #8bc34a);
+color: #fff;
+border: none;
+border-radius: 10px;
+padding: 8px 16px;
+font-size: 1.1rem;
+font-weight: 600;
+cursor: pointer;
+transition: background 0.2s;
+}
+.ecoBuddySendBtn:hover {
+background: linear-gradient(135deg, #8bc34a, #4a7c23);
+}
+.ecoBuddyMsgRow {
+display: flex;
+align-items: flex-end;
+gap: 8px;
+}
+.ecoBuddyMsgBot {
+background: #e8f5e9;
+color: #4a7c23;
+border-radius: 12px 12px 12px 2px;
+padding: 10px 14px;
+font-size: 1rem;
+max-width: 80%;
+margin-bottom: 2px;
+box-shadow: 0 2px 8px rgba(139,195,74,0.07);
+}
+.ecoBuddyMsgUser {
+background: linear-gradient(135deg, #4a7c23, #8bc34a);
+color: #fff;
+border-radius: 12px 12px 2px 12px;
+padding: 10px 14px;
+font-size: 1rem;
+max-width: 80%;
+align-self: flex-end;
+margin-left: auto;
+margin-bottom: 2px;
+box-shadow: 0 2px 8px rgba(74,124,35,0.10);
+}
+.ecoBuddyAvatar {
+width: 32px;
+height: 32px;
+border-radius: 50%;
+background: linear-gradient(135deg, #4a7c23, #8bc34a);
+color: #fff;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.3rem;
+margin-right: 2px;
+}
+.ecoBuddyAvatarUser {
+background: #8bc34a;
+margin-left: 2px;
+margin-right: 0;
+}
+.ecoBuddyTyping {
+font-size: 0.98rem;
+color: #4a7c23;
+margin-left: 36px;
+margin-bottom: 4px;
+font-style: italic;
+opacity: 0.8;
 }
 
 /* Modal & Other Styles... (keeping existing modal styles) */
