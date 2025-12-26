@@ -205,7 +205,7 @@
     }
 }
 
-/* Responsive - Tablet - 2 COLUMNS */
+/* Responsive - Tablet - 1 COLUMN */
 @media (max-width: 768px) {
     .leaderboardSection {
         padding: 50px 0;
@@ -227,9 +227,9 @@
         font-size: 1rem;
     }
 
-    /* 2 COLUMNS FOR TABLET */
+    /* 1 COLUMN FOR TABLET & MOBILE */
     .leaderboardGrid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 
@@ -258,7 +258,7 @@
     }
 
     .itemLocation {
-        font-size: 0.8rem;
+        display: none;
     }
 
     .scoreValue {
@@ -270,7 +270,7 @@
     }
 }
 
-/* Responsive - Mobile - KEEP 2 COLUMNS */
+/* Responsive - Mobile - 1 COLUMN, HORIZONTAL ITEM */
 @media (max-width: 480px) {
     .leaderboardSection {
         padding: 40px 0;
@@ -288,9 +288,9 @@
         font-size: 0.9rem;
     }
 
-    /* MAINTAIN 2 COLUMNS ON MOBILE */
+    /* 1 COLUMN ON MOBILE */
     .leaderboardGrid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 15px;
     }
 
@@ -311,23 +311,26 @@
         font-size: 1.3rem;
     }
 
+    /* HORIZONTAL ITEM: nomor, nama, score */
     .leaderboardItem {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
         padding: 8px 6px;
         margin: 5px 0;
-        flex-direction: column;
-        align-items: flex-start;
         border-radius: 8px;
-        gap: 6px;
+        gap: 0;
+        min-height: unset;
     }
 
     .rankBadge {
-        margin-right: 0;
-        margin-bottom: 4px;
+        margin-right: 8px;
+        margin-bottom: 0;
     }
 
     .badge {
-        min-width: 28px;
-        height: 28px;
+        min-width: 26px;
+        height: 26px;
         font-size: 0.85rem;
         padding: 0 6px;
         border-radius: 6px;
@@ -335,39 +338,50 @@
 
     .itemInfo {
         flex: 1;
-        width: 100%;
         min-width: 0;
+        text-align: left;
+        margin-right: 8px;
+        display: flex;
+        align-items: center;
     }
 
     .itemName {
-        font-size: 0.85rem;
-        margin-bottom: 2px;
+        font-size: 0.92rem;
+        margin-bottom: 0;
+        font-weight: 600;
         line-height: 1.2;
         word-break: break-word;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 110px;
     }
 
     .itemLocation {
-        font-size: 0.7rem;
-        line-height: 1.2;
-        word-break: break-word;
+        display: none;
     }
 
     .itemScore {
         margin-left: 0;
-        margin-top: 4px;
-        text-align: left;
-        width: 100%;
+        margin-top: 0;
+        text-align: right;
+        min-width: 48px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: center;
     }
 
     .scoreValue {
-        font-size: 0.9rem;
-        display: inline;
+        font-size: 0.95rem;
+        font-weight: 700;
+        display: block;
+        margin-bottom: 0;
+        color: #4a7c23;
     }
 
     .scoreLabel {
-        font-size: 0.65rem;
-        display: inline;
-        margin-left: 4px;
+        display: none;
     }
 
     .leaderboardItem:hover,
@@ -376,55 +390,47 @@
     }
 }
 
-/* Responsive - Very Small Mobile - STILL 2 COLUMNS */
+/* Responsive - Very Small Mobile - 1 COLUMN */
 @media (max-width: 360px) {
     .leaderboardGrid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
 
     .leaderboard {
-        padding: 10px;
+        padding: 8px;
     }
 
     .leaderboardTitle {
         font-size: 0.95rem;
-        margin-bottom: 10px;
-        gap: 5px;
+        margin-bottom: 8px;
+        gap: 4px;
     }
 
     .trophy,
     .star {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
 
     .leaderboardItem {
-        padding: 7px 5px;
-        margin: 4px 0;
-        gap: 5px;
+        padding: 6px 3px;
+        gap: 0;
     }
 
     .badge {
-        min-width: 26px;
-        height: 26px;
-        font-size: 0.8rem;
-        padding: 0 5px;
+        min-width: 22px;
+        height: 22px;
+        font-size: 0.7rem;
+        padding: 0 4px;
     }
 
     .itemName {
         font-size: 0.8rem;
-    }
-
-    .itemLocation {
-        font-size: 0.65rem;
+        max-width: 70px;
     }
 
     .scoreValue {
-        font-size: 0.85rem;
-    }
-
-    .scoreLabel {
-        font-size: 0.6rem;
+        font-size: 0.8rem;
     }
 }
 

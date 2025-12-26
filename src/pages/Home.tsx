@@ -4,7 +4,7 @@ import Footer from "../components/Footer/Footer"
 import Hero from "../components/Hero/Hero"
 import Leaderboard from "../components/Leaderboard/Leaderboard"
 import Logo from "../components/Logo"
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar/Navbar"
 import Overview from "../components/Overview/Overview"
 import ProductCategory from "../components/ProductCategory/ProductCategory"
 

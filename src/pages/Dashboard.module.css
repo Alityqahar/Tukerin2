@@ -65,12 +65,23 @@
     z-index: 1;
 }
 
+/* Mobile Top Row - Desktop: Default stacked layout */
+.mobileTopRow {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* Hide SideContentRight on Desktop (shown in DashboardContainer) */
+.mobileSideContent {
+    display: none;
+}
+
 /* Dashboard Header */
 .dashboardHeader {
     background: linear-gradient(135deg, #ffffff 0%, #f1f8e9 100%);
     border-radius: 24px;
     padding: 40px;
-    margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0,0,0,0.08);
     border: 2px solid rgba(139,195,74,0.2);
     position: relative;
@@ -250,9 +261,26 @@
         padding: 30px 12px;
     }
 
+    /* Mobile: Horizontal layout - SideContent LEFT, Header RIGHT */
+    .mobileTopRow {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+        margin-bottom: 30px;
+        align-items: flex-start;
+    }
+
+    /* Show SideContentRight on Mobile */
+    .mobileSideContent {
+        display: block;
+        flex-shrink: 0;
+        width: 140px;
+    }
+
     .dashboardHeader {
         padding: 25px 20px;
-        margin-bottom: 30px;
+        flex: 1;
+        min-width: 0;
     }
 
     .welcomeTitle {

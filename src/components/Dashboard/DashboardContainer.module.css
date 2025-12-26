@@ -75,4 +75,9 @@
     width: 100%;
     min-width: 0;
   }
+  
+  /* Hide first item (SideContentRight) on mobile - shown in header instead */
+  .item:first-child {
+    display: none;
+  }
 }

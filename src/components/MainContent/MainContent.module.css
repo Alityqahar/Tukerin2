@@ -293,6 +293,7 @@
         margin-top: 15px;
     }
 
+    /* My Activity: 2 columns on mobile */
     .activContainer {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
@@ -301,7 +302,7 @@
     }
 
     .activItem {
-        min-height: 130px;
+        min-height: 140px;
         padding: 12px;
     }
 
@@ -328,14 +329,27 @@
         padding: 5px 8px;
     }
 
+    /* My Activity: maintain 2 columns on small mobile */
     .activContainer {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .activItem {
-        min-height: 120px;
-        padding: 10px;
+        min-height: 130px;
+        padding: 10px 8px;
         border-radius: 14px;
+    }
+
+    .activItem i {
+        font-size: clamp(1.8rem, 4.5vw, 2.2rem);
+    }
+
+    .activItem .title {
+        font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    }
+
+    .activItem .desc {
+        font-size: clamp(0.7rem, 1.5vw, 0.75rem);
     }
 
     .btn {

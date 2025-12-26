@@ -99,3 +99,70 @@
     from { opacity: 0; transform: translateY(8px);}
     to { opacity: 1; transform: translateY(0);}
 }
+
+/* Mobile Responsive - Compact Profile */
+@media (max-width: 768px) {
+    .container {
+        padding: 8px 10px;
+        gap: 8px;
+        margin: 16px auto;
+        max-width: 100%;
+    }
+
+    .avatarWrapper {
+        margin-top: 16px;
+        padding: 4px;
+    }
+
+    .foto {
+        width: 70px;
+        height: 70px;
+        border: 3px solid #e8f5e9;
+    }
+
+    .name {
+        font-size: 0.9rem;
+        margin-top: 12px;
+    }
+
+    .id {
+        margin-top: 10px;
+        padding: 6px 10px;
+        min-width: 120px;
+        gap: 6px;
+    }
+
+    .noid {
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+        margin-left: 4px;
+        padding: 2px 4px;
+    }
+
+    .copied {
+        font-size: 0.7rem;
+        padding: 1px 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 6px 8px;
+    }
+
+    .foto {
+        width: 60px;
+        height: 60px;
+    }
+
+    .name {
+        font-size: 0.85rem;
+    }
+
+    .noid {
+        font-size: 0.75rem;
+    }
+}
