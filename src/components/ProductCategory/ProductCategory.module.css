@@ -388,9 +388,64 @@ align-items: center;
 justify-content: center;
 }
 
-.floatingCartBtn:hover {
-background: #8bc34a;
-transform: scale(1.1);
+/* Cart Badge Notification */
+.cartBadge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  background: #e53935;
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(229,57,53,0.18);
+  border: 2px solid #fff;
+  z-index: 2;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Responsif badge pada tombol cart */
+@media (max-width: 768px) {
+.floatingCartBtn {
+  bottom: 20px;
+  right: 20px;
+  width: 55px;
+  height: 55px;
+  font-size: 1.5rem;
+}
+.cartBadge {
+  top: 6px;
+  right: 6px;
+  min-width: 18px;
+  height: 18px;
+  font-size: 0.85rem;
+  padding: 0 5px;
+}
+}
+
+@media (max-width: 480px) {
+.floatingCartBtn {
+  width: 50px;
+  height: 50px;
+  font-size: 1.3rem;
+}
+.cartBadge {
+  top: 4px;
+  right: 4px;
+  min-width: 15px;
+  height: 15px;
+  font-size: 0.78rem;
+  padding: 0 4px;
+}
 }
 
 /* === Floating EcoBuddy Button === */

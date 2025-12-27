@@ -1,0 +1,66 @@
+.loadingOverlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #e8f5e9 0%, #c5e1a5 50%, #aed581 100%);
+  z-index: 5000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s cubic-bezier(.4,1.2,.6,1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.loaderBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  background: rgba(255,255,255,0.85);
+  padding: 36px 36px 28px 36px;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px rgba(74,124,35,0.10);
+  min-width: 180px;
+}
+
+.leafIcon {
+  display: inline-block;
+  animation: leafSpin 1.2s linear infinite;
+  margin-bottom: 6px;
+}
+
+@keyframes leafSpin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
+
+.loadingText {
+  font-size: 1.25rem;
+  color: #4a7c23;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.dot {
+  display: inline-block;
+  animation: dotBlink 1s infinite;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #8bc34a;
+  opacity: 0.7;
+}
+
+@keyframes dotBlink {
+  0%, 80%, 100% { opacity: 0.2; }
+  40% { opacity: 1; }
+}
+
+/* Hide overlay (for fade out) */
+.loadingOverlay.hide {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(.4,1.2,.6,1);
+}
