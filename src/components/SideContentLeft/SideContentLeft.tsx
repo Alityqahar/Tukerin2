@@ -1,11 +1,15 @@
-import Calender from "../Calender/Calender"
-import Notif from "../Notif/Notif"
+import Calender from "../Calender/Calender";
+import Notif from "../Notif/Notif";
 
-export default function SideContentLeft(){
-    return(
+interface SideContentLeftProps {
+    userId: string;
+}
+
+export default function SideContentLeft({ userId }: SideContentLeftProps) {
+    return (
         <>
             <Calender />
-            <Notif />
+            <Notif userId={userId} />
         </>
-    )
+    );
 }

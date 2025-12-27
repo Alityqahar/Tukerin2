@@ -2,29 +2,138 @@ import { useState, useEffect } from "react"
 import ClickSpark from "../components/ClickSpark/ClickSpark"
 import DashboardContainer from "../components/Dashboard/DashboardContainer"
 import SideContentRight from "../components/SideContentRight/SideContentRight"
+import LoadingScreen from "../components/Loading/LoadingScreen"
+import { authService } from "../services/authService"
+import { dashboardService } from "../services/dashboardService"
+import type { UserProfile } from "../services/dashboardService"
 import styles from "./Dashboard.module.css"
 
 export default function Dashboard(){
-    const [ecoScore, setEcoScore] = useState(0);
-    const [carbonSaved, setCarbonSaved] = useState(0);
+    const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+    const [stats, setStats] = useState({
+        eco_score: 0,
+        carbon_saved: 0,
+        total_activities: 0,
+        pending_assignments: 0,
+        unread_notifications: 0
+    });
+    const [loading, setLoading] = useState(true);
+
+    // Animated counters
+    const [displayedEcoScore, setDisplayedEcoScore] = useState(0);
+    const [displayedCarbon, setDisplayedCarbon] = useState(0);
 
     useEffect(() => {
-        const targetEco = 1247;
-        const targetCarbon = 85.3;
+        loadDashboardData();
         
+        // Setup real-time subscriptions
+        const setupRealtimeUpdates = async () => {
+            const currentUser = await authService.getCurrentUser();
+            if (currentUser) {
+                const channel = dashboardService.subscribeToUserUpdates(
+                    currentUser.id,
+                    () => {
+                        // Reload data when updates occur
+                        loadDashboardData();
+                    }
+                );
+
+                return () => {
+                    channel.unsubscribe();
+                };
+            }
+        };
+
+        setupRealtimeUpdates();
+    }, []);
+
+    // Animate counters
+    useEffect(() => {
+        if (stats.eco_score === 0 && stats.carbon_saved === 0) return;
+
+        const animationDuration = 1500; // ms
+        const steps = 50;
+        const stepDuration = animationDuration / steps;
+
+        const ecoIncrement = stats.eco_score / steps;
+        const carbonIncrement = stats.carbon_saved / steps;
+
+        let currentStep = 0;
         const timer = setInterval(() => {
-            setEcoScore(prev => {
-                if (prev < targetEco) return Math.min(prev + Math.ceil(targetEco / 50), targetEco);
-                return prev;
+            currentStep++;
+            
+            setDisplayedEcoScore(prev => {
+                const next = prev + ecoIncrement;
+                return currentStep >= steps ? stats.eco_score : next;
             });
-            setCarbonSaved(prev => {
-                if (prev < targetCarbon) return Math.min(prev + (targetCarbon / 50), targetCarbon);
-                return prev;
+
+            setDisplayedCarbon(prev => {
+                const next = prev + carbonIncrement;
+                return currentStep >= steps ? stats.carbon_saved : next;
             });
-        }, 30);
+
+            if (currentStep >= steps) {
+                clearInterval(timer);
+            }
+        }, stepDuration);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [stats.eco_score, stats.carbon_saved]);
+
+    const loadDashboardData = async () => {
+        try {
+            setLoading(true);
+
+            // Get current user
+            const currentUser = await authService.getCurrentUser();
+            if (!currentUser) {
+                window.location.href = '/login';
+                return;
+            }
+
+            // Load user profile
+            const profile = await dashboardService.getUserProfile(currentUser.id);
+            setUserProfile(profile);
+
+            // Load statistics
+            const userStats = await dashboardService.getUserStats(currentUser.id);
+            setStats(userStats);
+
+        } catch (error) {
+            console.error('Error loading dashboard data:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (loading) {
+        return <LoadingScreen />;
+    }
+
+    if (!userProfile) {
+        return (
+            <section className={styles.dashboardSection}>
+                <div className={styles.dashboardWrapper}>
+                    <div style={{ textAlign: 'center', padding: '60px 20px' }}>
+                        <h2>Gagal memuat profil pengguna</h2>
+                        <p>Silakan refresh halaman atau login kembali</p>
+                        <a href="/login" style={{
+                            display: 'inline-block',
+                            marginTop: '20px',
+                            padding: '12px 24px',
+                            background: 'linear-gradient(135deg, #4a7c23, #8bc34a)',
+                            color: 'white',
+                            borderRadius: '12px',
+                            textDecoration: 'none',
+                            fontWeight: '600'
+                        }}>
+                            Login Kembali
+                        </a>
+                    </div>
+                </div>
+            </section>
+        );
+    }
 
     return(
         <section className={styles.dashboardSection}>
@@ -40,7 +149,7 @@ export default function Dashboard(){
                 <div className={styles.mobileTopRow}>
                     {/* Side Content - Left on Mobile */}
                     <div className={styles.mobileSideContent}>
-                        <SideContentRight />
+                        <SideContentRight userProfile={userProfile} />
                     </div>
                     
                     {/* Header Section - Right on Mobile */}
@@ -52,7 +161,7 @@ export default function Dashboard(){
                                     Dashboard
                                 </h1>
                                 <p className={styles.welcomeSubtitle}>
-                                    Selamat datang kembali! Pantau aktivitas dan progres Anda
+                                    Selamat datang kembali, {userProfile.full_name}!
                                 </p>
                             </div>
                             
@@ -63,7 +172,9 @@ export default function Dashboard(){
                                         <i className="bi bi-trophy-fill"></i>
                                     </div>
                                     <div className={styles.statInfo}>
-                                        <span className={styles.statValue}>{ecoScore.toLocaleString('id-ID')}</span>
+                                        <span className={styles.statValue}>
+                                            {Math.round(displayedEcoScore).toLocaleString('id-ID')}
+                                        </span>
                                         <span className={styles.statLabel}>Eco-Score</span>
                                     </div>
                                 </div>
@@ -73,7 +184,9 @@ export default function Dashboard(){
                                         <i className="bi bi-tree-fill"></i>
                                     </div>
                                     <div className={styles.statInfo}>
-                                        <span className={styles.statValue}>{carbonSaved.toFixed(1)} kg</span>
+                                        <span className={styles.statValue}>
+                                            {displayedCarbon.toFixed(1)} kg
+                                        </span>
                                         <span className={styles.statLabel}>CO₂ Dikurangi</span>
                                     </div>
                                 </div>
@@ -90,7 +203,10 @@ export default function Dashboard(){
                     sparkCount={8}
                     duration={400}
                 >
-                    <DashboardContainer />
+                    <DashboardContainer 
+                        userId={userProfile.id}
+                        userRole={userProfile.role}
+                    />
                 </ClickSpark>
             </div>
         </section>
