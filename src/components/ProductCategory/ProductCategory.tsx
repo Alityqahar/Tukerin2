@@ -153,7 +153,14 @@ const confirmCheckout = async () => {
 		}
 	}
 	if (hasError) {
-		alert('Checkout gagal: Gagal update stok pada satu atau lebih produk.');
+		// Ganti alert dengan SweetAlert
+		Swal.fire({
+			icon: 'error',
+			title: 'Checkout Gagal',
+			text: 'Gagal update stok pada satu atau lebih produk.',
+			timer: 2500,
+			showConfirmButton: false,
+		});
 		return;
 	}
 

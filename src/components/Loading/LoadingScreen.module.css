@@ -1,8 +1,9 @@
+/* Overlay utama untuk loading */
 .loadingOverlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #e8f5e9 0%, #c5e1a5 50%, #aed581 100%);
-  z-index: 5000;
+  background: rgba(232, 245, 233, 0.95);
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,22 +12,40 @@
   pointer-events: all;
 }
 
+/* Box loading di tengah */
 .loaderBox {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 18px;
-  background: rgba(255,255,255,0.85);
-  padding: 36px 36px 28px 36px;
-  border-radius: 22px;
-  box-shadow: 0 8px 32px rgba(74,124,35,0.10);
-  min-width: 180px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  padding: 40px 36px;
 }
 
+/* SVG daun animasi */
 .leafIcon {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
   animation: leafSpin 1.2s linear infinite;
-  margin-bottom: 6px;
+}
+
+.leafBg {
+  fill: #e8f5e9;
+}
+
+.leafMain {
+  fill: #4a7c23;
+}
+
+.leafStroke {
+  stroke: #8bc34a;
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
 }
 
 @keyframes leafSpin {
@@ -34,26 +53,32 @@
   100% { transform: rotate(360deg);}
 }
 
+/* Teks loading dan animasi titik */
 .loadingText {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: #4a7c23;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-weight: 700;
+  letter-spacing: 1px;
   display: flex;
   align-items: center;
   gap: 2px;
 }
 
+/* Titik-titik animasi berjalan */
 .dot {
   display: inline-block;
-  animation: dotBlink 1s infinite;
-  font-size: 1.3em;
-  font-weight: bold;
+  width: 0.7em;
+  height: 1em;
   color: #8bc34a;
-  opacity: 0.7;
+  animation: loadingDot 1s infinite;
+  animation-delay: var(--dot-delay, 0s);
 }
 
-@keyframes dotBlink {
+.dot[data-delay="0"] { --dot-delay: 0s; }
+.dot[data-delay="0.15"] { --dot-delay: 0.15s; }
+.dot[data-delay="0.3"] { --dot-delay: 0.3s; }
+
+@keyframes loadingDot {
   0%, 80%, 100% { opacity: 0.2; }
   40% { opacity: 1; }
 }

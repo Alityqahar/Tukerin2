@@ -4,7 +4,13 @@ import type { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import styles from './Login.module.css'; // Reuse login styles
+import successStyles from './RegisterSuccess.module.css'; // CSS khusus tampilan sukses
+import Swal from 'sweetalert2';
 
+/**
+ * Komponen Register
+ * Menangani proses registrasi user baru.
+ */
 export default function Register() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -20,6 +26,7 @@ export default function Register() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
+  // Handler perubahan input form
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -27,6 +34,7 @@ export default function Register() {
     });
   };
 
+  // Handler submit form registrasi
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
@@ -34,32 +42,53 @@ export default function Register() {
 
     // Validasi input
     if (!formData.email.trim()) {
-      setError('Email harus diisi');
       setLoading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Email harus diisi',
+        timer: 1800,
+        showConfirmButton: false,
+      });
       return;
     }
-
     if (!formData.full_name.trim()) {
-      setError('Nama lengkap harus diisi');
       setLoading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Nama lengkap harus diisi',
+        timer: 1800,
+        showConfirmButton: false,
+      });
       return;
     }
-
     if (!formData.password) {
-      setError('Password harus diisi');
       setLoading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Password harus diisi',
+        timer: 1800,
+        showConfirmButton: false,
+      });
       return;
     }
-
     if (formData.password.length < 6) {
-      setError('Password minimal 6 karakter');
       setLoading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Password minimal 6 karakter',
+        timer: 1800,
+        showConfirmButton: false,
+      });
       return;
     }
-
     if (formData.password !== formData.confirmPassword) {
-      setError('Password dan konfirmasi password tidak cocok');
       setLoading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Password dan konfirmasi password tidak cocok',
+        timer: 1800,
+        showConfirmButton: false,
+      });
       return;
     }
 
@@ -72,25 +101,38 @@ export default function Register() {
       });
 
       if (registerError || !user) {
-        setError(registerError || 'Registrasi gagal');
         setLoading(false);
+        Swal.fire({
+          icon: 'error',
+          title: 'Registrasi gagal',
+          text: registerError || 'Registrasi gagal',
+          timer: 2000,
+          showConfirmButton: false,
+        });
         return;
       }
 
       // Success
       setSuccess(true);
       setLoading(false);
-      
+
       // Redirect after 3 seconds
       setTimeout(() => {
         navigate('/login');
       }, 3000);
-    } catch{
-      setError('Terjadi kesalahan. Silakan coba lagi.');
+    } catch {
       setLoading(false);
+      Swal.fire({
+        icon: 'error',
+        title: 'Terjadi kesalahan',
+        text: 'Terjadi kesalahan. Silakan coba lagi.',
+        timer: 2000,
+        showConfirmButton: false,
+      });
     }
   };
 
+  // Tampilan sukses registrasi (semua style dipindah ke RegisterSuccess.module.css)
   if (success) {
     return (
       <section className={styles.loginSection}>
@@ -99,94 +141,36 @@ export default function Register() {
           <div className={styles.circle2} />
           <div className={styles.circle3} />
         </div>
-
         <div className={styles.loginContainer} style={{ maxWidth: '600px', gridTemplateColumns: '1fr' }}>
           <div className={styles.rightPanel}>
             <div className={styles.formContainer}>
-              <div style={{
-                textAlign: 'center',
-                padding: '40px 20px'
-              }}>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  background: 'linear-gradient(135deg, #4a7c23, #8bc34a)',
-                  borderRadius: '50%',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto 25px',
-                  fontSize: '3rem',
-                  color: 'white',
-                  animation: 'scaleIn 0.5s cubic-bezier(0.2,0.9,0.3,1)'
-                }}>
+              <div className={successStyles.successBox}>
+                <div className={successStyles.successIcon}>
                   <i className="bi bi-check-circle-fill"></i>
                 </div>
-                <h2 style={{
-                  fontSize: '1.8rem',
-                  fontWeight: '800',
-                  color: '#2d5016',
-                  marginBottom: '15px'
-                }}>
+                <h2 className={successStyles.successTitle}>
                   Registrasi Berhasil!
                 </h2>
-                <p style={{
-                  fontSize: '1.1rem',
-                  color: '#5a7c3c',
-                  lineHeight: '1.6',
-                  marginBottom: '25px'
-                }}>
+                <p className={successStyles.successSubtitle}>
                   Kami telah mengirim email verifikasi ke <strong>{formData.email}</strong>
                 </p>
-                <div style={{
-                  background: 'linear-gradient(135deg, #fff3e0, #ffe0b2)',
-                  padding: '20px',
-                  borderRadius: '12px',
-                  border: '2px solid #ffb74d',
-                  marginBottom: '25px',
-                  textAlign: 'left'
-                }}>
-                  <p style={{
-                    margin: '0 0 10px 0',
-                    fontWeight: '600',
-                    color: '#ef6c00',
-                    fontSize: '1rem'
-                  }}>
-                    <i className="bi bi-info-circle-fill" style={{ marginRight: '8px' }}></i>
+                <div className={successStyles.nextStepBox}>
+                  <p className={successStyles.nextStepTitle}>
+                    <i className="bi bi-info-circle-fill"></i>
                     Langkah Selanjutnya:
                   </p>
-                  <ol style={{
-                    margin: '0',
-                    paddingLeft: '20px',
-                    color: '#5a7c3c',
-                    fontSize: '0.95rem'
-                  }}>
+                  <ol className={successStyles.nextStepList}>
                     <li>Buka inbox email Anda</li>
                     <li>Klik link verifikasi yang kami kirim</li>
                     <li>Login dengan akun Anda</li>
                   </ol>
                 </div>
-                <p style={{
-                  fontSize: '0.9rem',
-                  color: '#999',
-                  marginBottom: '20px'
-                }}>
+                <p className={successStyles.redirectInfo}>
                   Anda akan dialihkan ke halaman login dalam beberapa detik...
                 </p>
                 <a
                   href="/login"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '8px',
-                    padding: '12px 24px',
-                    background: 'linear-gradient(135deg, #4a7c23, #8bc34a)',
-                    color: 'white',
-                    borderRadius: '10px',
-                    textDecoration: 'none',
-                    fontWeight: '600',
-                    transition: 'all 0.3s ease'
-                  }}
+                  className={successStyles.loginBtn}
                 >
                   <i className="bi bi-box-arrow-in-right"></i>
                   Login Sekarang
@@ -195,17 +179,11 @@ export default function Register() {
             </div>
           </div>
         </div>
-
-        <style>{`
-          @keyframes scaleIn {
-            from { transform: scale(0); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-          }
-        `}</style>
       </section>
     );
   }
 
+  // Tampilan form registrasi
   return (
     <section className={styles.loginSection}>
       <div className={styles.bgDecor}>
@@ -213,7 +191,6 @@ export default function Register() {
         <div className={styles.circle2} />
         <div className={styles.circle3} />
       </div>
-
       <div className={styles.loginContainer}>
         {/* Left Panel - Branding */}
         <div className={styles.leftPanel}>

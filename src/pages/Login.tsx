@@ -4,6 +4,7 @@ import type { FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import styles from './Login.module.css';
+import Swal from 'sweetalert2'; // Tambahkan import
 
 export default function Login() {
   const navigate = useNavigate();
@@ -20,20 +21,35 @@ export default function Login() {
 
     // Validasi input
     if (!email.trim()) {
-      setError('Email harus diisi');
       setLoading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Email harus diisi',
+        timer: 1800,
+        showConfirmButton: false,
+      });
       return;
     }
 
     if (!password) {
-      setError('Password harus diisi');
       setLoading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Password harus diisi',
+        timer: 1800,
+        showConfirmButton: false,
+      });
       return;
     }
 
     if (password.length < 6) {
-      setError('Password minimal 6 karakter');
       setLoading(false);
+      Swal.fire({
+        icon: 'warning',
+        title: 'Password minimal 6 karakter',
+        timer: 1800,
+        showConfirmButton: false,
+      });
       return;
     }
 
@@ -44,16 +60,28 @@ export default function Login() {
       });
 
       if (loginError || !user) {
-        setError(loginError || 'Login gagal');
         setLoading(false);
+        Swal.fire({
+          icon: 'error',
+          title: 'Login gagal',
+          text: loginError || 'Login gagal',
+          timer: 2000,
+          showConfirmButton: false,
+        });
         return;
       }
 
       // Success - redirect to dashboard
       navigate('/dashboard');
     } catch {
-      setError('Terjadi kesalahan. Silakan coba lagi.');
       setLoading(false);
+      Swal.fire({
+        icon: 'error',
+        title: 'Terjadi kesalahan',
+        text: 'Terjadi kesalahan. Silakan coba lagi.',
+        timer: 2000,
+        showConfirmButton: false,
+      });
     }
   };
 

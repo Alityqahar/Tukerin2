@@ -2,8 +2,13 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
-import styles from './Login.module.css';
+import styles from './AuthCallback.module.css'; // Ganti ke CSS module khusus
+import Swal from 'sweetalert2';
 
+/**
+ * Komponen AuthCallback
+ * Menangani proses verifikasi email setelah redirect dari link email.
+ */
 export default function AuthCallback() {
   const navigate = useNavigate();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -24,10 +29,25 @@ export default function AuthCallback() {
         } else {
           setStatus('error');
           setMessage(error || 'Verifikasi gagal. Silakan coba lagi.');
+          // SweetAlert untuk error verifikasi
+          Swal.fire({
+            icon: 'error',
+            title: 'Verifikasi Gagal',
+            text: error || 'Verifikasi gagal. Silakan coba lagi.',
+            timer: 2200,
+            showConfirmButton: false,
+          });
         }
       } catch{
         setStatus('error');
         setMessage('Terjadi kesalahan saat verifikasi.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Terjadi Kesalahan',
+          text: 'Terjadi kesalahan saat verifikasi.',
+          timer: 2200,
+          showConfirmButton: false,
+        });
       }
     };
 
@@ -45,84 +65,25 @@ export default function AuthCallback() {
       <div className={styles.loginContainer} style={{ maxWidth: '600px', gridTemplateColumns: '1fr' }}>
         <div className={styles.rightPanel}>
           <div className={styles.formContainer}>
-            <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+            <div className={styles.centeredBox}>
               {status === 'loading' && (
                 <>
-                  <div style={{
-                    width: '80px',
-                    height: '80px',
-                    border: '6px solid #e0e7ef',
-                    borderTopColor: '#4a7c23',
-                    borderRadius: '50%',
-                    margin: '0 auto 25px',
-                    animation: 'spin 0.8s linear infinite'
-                  }} />
-                  <h2 style={{
-                    fontSize: '1.8rem',
-                    fontWeight: '800',
-                    color: '#2d5016',
-                    marginBottom: '15px'
-                  }}>
-                    Memverifikasi Email
-                  </h2>
-                  <p style={{
-                    fontSize: '1.1rem',
-                    color: '#5a7c3c',
-                    lineHeight: '1.6'
-                  }}>
-                    {message}
-                  </p>
+                  <div className={styles.spinner} />
+                  <h2 className={styles.title}>Memverifikasi Email</h2>
+                  <p className={styles.subtitle}>{message}</p>
                 </>
               )}
 
               {status === 'success' && (
                 <>
-                  <div style={{
-                    width: '80px',
-                    height: '80px',
-                    background: 'linear-gradient(135deg, #4a7c23, #8bc34a)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 25px',
-                    fontSize: '3rem',
-                    color: 'white',
-                    animation: 'scaleIn 0.5s cubic-bezier(0.2,0.9,0.3,1)'
-                  }}>
+                  <div className={styles.successIcon}>
                     <i className="bi bi-check-circle-fill"></i>
                   </div>
-                  <h2 style={{
-                    fontSize: '1.8rem',
-                    fontWeight: '800',
-                    color: '#2d5016',
-                    marginBottom: '15px'
-                  }}>
-                    Email Terverifikasi!
-                  </h2>
-                  <p style={{
-                    fontSize: '1.1rem',
-                    color: '#5a7c3c',
-                    lineHeight: '1.6',
-                    marginBottom: '25px'
-                  }}>
-                    {message}
-                  </p>
+                  <h2 className={styles.titleSuccess}>Email Terverifikasi!</h2>
+                  <p className={styles.subtitle}>{message}</p>
                   <a
                     href="/login"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      padding: '14px 28px',
-                      background: 'linear-gradient(135deg, #4a7c23, #8bc34a)',
-                      color: 'white',
-                      borderRadius: '12px',
-                      textDecoration: 'none',
-                      fontWeight: '700',
-                      transition: 'all 0.3s ease',
-                      fontSize: '1.05rem'
-                    }}
+                    className={styles.loginBtn}
                   >
                     <i className="bi bi-box-arrow-in-right"></i>
                     Login Sekarang
@@ -132,71 +93,22 @@ export default function AuthCallback() {
 
               {status === 'error' && (
                 <>
-                  <div style={{
-                    width: '80px',
-                    height: '80px',
-                    background: 'linear-gradient(135deg, #ef5350, #e53935)',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    margin: '0 auto 25px',
-                    fontSize: '3rem',
-                    color: 'white',
-                    animation: 'shake 0.5s'
-                  }}>
+                  <div className={styles.errorIcon}>
                     <i className="bi bi-x-circle-fill"></i>
                   </div>
-                  <h2 style={{
-                    fontSize: '1.8rem',
-                    fontWeight: '800',
-                    color: '#c62828',
-                    marginBottom: '15px'
-                  }}>
-                    Verifikasi Gagal
-                  </h2>
-                  <p style={{
-                    fontSize: '1.1rem',
-                    color: '#5a7c3c',
-                    lineHeight: '1.6',
-                    marginBottom: '25px'
-                  }}>
-                    {message}
-                  </p>
-                  <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                  <h2 className={styles.titleError}>Verifikasi Gagal</h2>
+                  <p className={styles.subtitle}>{message}</p>
+                  <div className={styles.actionRow}>
                     <a
                       href="/register"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '12px 24px',
-                        background: 'white',
-                        color: '#4a7c23',
-                        border: '2px solid #8bc34a',
-                        borderRadius: '12px',
-                        textDecoration: 'none',
-                        fontWeight: '600',
-                        transition: 'all 0.3s ease'
-                      }}
+                      className={styles.retryBtn}
                     >
                       <i className="bi bi-arrow-clockwise"></i>
                       Daftar Ulang
                     </a>
                     <a
                       href="/"
-                      style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '12px 24px',
-                        background: 'linear-gradient(135deg, #4a7c23, #8bc34a)',
-                        color: 'white',
-                        borderRadius: '12px',
-                        textDecoration: 'none',
-                        fontWeight: '600',
-                        transition: 'all 0.3s ease'
-                      }}
+                      className={styles.homeBtn}
                     >
                       <i className="bi bi-house"></i>
                       Beranda
@@ -208,21 +120,6 @@ export default function AuthCallback() {
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes spin {
-          to { transform: rotate(360deg); }
-        }
-        @keyframes scaleIn {
-          from { transform: scale(0); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-        @keyframes shake {
-          0%, 100% { transform: translateX(0); }
-          25% { transform: translateX(-10px); }
-          75% { transform: translateX(10px); }
-        }
-      `}</style>
     </section>
   );
 }

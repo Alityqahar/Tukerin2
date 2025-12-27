@@ -3,6 +3,7 @@ import styles from './Notif.module.css';
 import NotifItem from './NotifItem';
 import { dashboardService } from '../../services/dashboardService';
 import type { Notification } from '../../services/dashboardService';
+import Swal from 'sweetalert2';
 
 interface NotifProps {
     userId: string;
@@ -37,6 +38,14 @@ export default function Notif({ userId }: NotifProps) {
             const data = await dashboardService.getUserNotifications(userId, 5);
             setNotifications(data);
         } catch (error) {
+            // Ganti error notification dengan SweetAlert
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Memuat Notifikasi',
+                text: 'Terjadi kesalahan saat memuat notifikasi.',
+                timer: 2000,
+                showConfirmButton: false,
+            });
             console.error('Error loading notifications:', error);
         } finally {
             setLoading(false);
@@ -53,6 +62,15 @@ export default function Notif({ userId }: NotifProps) {
                         : notif
                 )
             );
+        } else {
+            // SweetAlert untuk error update
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal Update',
+                text: 'Tidak dapat menandai notifikasi sebagai sudah dibaca.',
+                timer: 1800,
+                showConfirmButton: false,
+            });
         }
     };
 

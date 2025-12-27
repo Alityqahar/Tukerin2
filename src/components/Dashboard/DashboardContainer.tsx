@@ -1,6 +1,7 @@
 import MainContent from '../MainContent/MainContent';
 import SideContentLeft from '../SideContentLeft/SideContentLeft';
 import SideContentRight from '../SideContentRight/SideContentRight';
+import type { UserProfile } from '../../services/dashboardService';
 import styles from './DashboardContainer.module.css';
 
 interface DashboardContainerProps {
@@ -9,15 +10,20 @@ interface DashboardContainerProps {
 }
 
 export default function DashboardContainer({ userId, userRole }: DashboardContainerProps) {
-    // Minimal placeholder UserProfile object
-    const userProfile = {
-        school_id: "",
-        school_name: "",
-        full_name: "",
-        profile_photo: "",
-        role: userRole,
-        // ...add any other required UserProfile fields if necessary...
-    };
+
+    const userProfile: UserProfile = {
+    id: userId,
+    email: "",
+    full_name: "",
+    school_id: null,
+    school_name: null,
+    role: userRole as 'student' | 'teacher' | 'admin',
+    eco_score: 0,
+    carbon_saved: 0,
+    profile_photo: null,
+    created_at: new Date().toISOString()
+};
+
 
     return (
         <div className={styles.container}>
