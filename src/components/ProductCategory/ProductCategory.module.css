@@ -615,6 +615,53 @@ font-style: italic;
 opacity: 0.8;
 }
 
+/* Thinking Indicator Styles */
+.ecoBuddyThinking {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 8px 0 4px 0;
+	font-size: 1rem;
+	opacity: 0.85;
+}
+
+.ecoBuddyThinkingText {
+	color: #4a7c23;
+	font-style: italic;
+	font-size: 1rem;
+	letter-spacing: 0.02em;
+	display: inline-flex;
+	align-items: center;
+}
+
+.ecoBuddyDot {
+	display: inline-block;
+	font-weight: bold;
+	font-size: 1.2em;
+	line-height: 1;
+	animation: ecoBuddyDotBlink 1.2s infinite both;
+	margin-left: 1px;
+}
+
+@keyframes ecoBuddyDotBlink {
+	0% { opacity: 0.2; }
+	20% { opacity: 1; }
+	100% { opacity: 0.2; }
+}
+
+.ecoBuddyCursor {
+	display: inline-block;
+	margin-left: 2px;
+	font-weight: bold;
+	color: #4a7c23;
+	animation: ecoBuddyCursorBlink 0.9s steps(1) infinite;
+}
+
+@keyframes ecoBuddyCursorBlink {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.2; }
+}
+
 /* Modal & Other Styles... (keeping existing modal styles) */
 .modalOverlay {
 position: fixed;
